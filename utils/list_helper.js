@@ -1,7 +1,5 @@
 const totalLikes = (blogs) => {
-    if (blogs.length === 0) {
-        return 0
-    }
+    if (blogs.length === 0) return 0
 
     const total = blogs.reduce((a, b) =>  {
         return { likes: a.likes + b.likes }
@@ -11,16 +9,8 @@ const totalLikes = (blogs) => {
 }
 
 const favoriteBlog = (blogs) => {
-    blogs = blogs.map((blog) => {
-        delete blog._id
-        delete blog.__v
-        delete blog.url
-
-        return { ...blog }
-    })
-
-    let topBlog = {}
     let topLikes = 0
+    let topBlog = {}
 
     for (let i = 0; i < blogs.length; i++) {
         if (blogs[i].likes > topLikes) {
@@ -29,17 +19,10 @@ const favoriteBlog = (blogs) => {
         }
     }
 
-    return topBlog
+    return { author: topBlog.author, likes: topBlog.likes, title: topBlog.title }
 }
 
 const authorWithMostBlogs = (authors) => {
-    authors = authors.map((author) => {
-        delete author._id
-        delete author.__v
-
-        return { ...author }
-    })
-
     let blogs = 0
     let topAuthor = {}
 
@@ -50,24 +33,14 @@ const authorWithMostBlogs = (authors) => {
         }
     }
 
-    return topAuthor
+    return { author: topAuthor.author, blogs: topAuthor.blogs }
 }
 
 const authorWithMostLikes = (blogs) => {
-    if (blogs.length === 0) {
-        return {}
-    }
-
-    blogs = blogs.map((blog) => {
-        delete blog._id
-        delete blog.__v
-        delete blog.url
-
-        return { ...blog }
-    })
+    if (blogs.length === 0) return {}
 
     let likesCount = {}
-    let bestAuthor = { author: '', likes: 0}
+    let bestAuthor = { author: '', likes: 0 }
 
     for (let i = 0; i < blogs.length; i++) {
         if (likesCount[blogs[i].author] === undefined) {

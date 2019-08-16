@@ -162,7 +162,7 @@ describe('most liked author', () => {
         expect(result).toEqual({})
     })
 
-    test.only('when list has only one author', () => {
+    test('when list has only one author', () => {
         const result = listHelper.authorWithMostLikes(listWithOneBlog)
         expect(result).toEqual({
             author: 'Edsger W. Dijkstra',
