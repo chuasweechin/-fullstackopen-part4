@@ -83,10 +83,7 @@ describe('blog api test', () => {
 
     test('a valid blog should not be added if contents are missing', async () => {
         const blog = {
-            title: '',
-            author: 'Alan John',
-            url: '',
-            likes: 90
+            author: 'Alan John'
         }
 
         const response = await api.post('/api/blogs').send(blog)
@@ -95,6 +92,35 @@ describe('blog api test', () => {
 
         const result = await helper.getAllBlogsInDB()
         expect(result.length).toBe(helper.blogs.length)
+    })
+
+    test('a blog can be deleted', async () => {
+        const blogsAtStart = await helper.getAllBlogsInDB()
+        const blogToDelete = blogsAtStart[0]
+
+        const response = await api.delete(`/api/blogs/${ blogToDelete.id }`)
+        expect(response.status).toBe(204)
+
+        const result = await helper.getAllBlogsInDB()
+        expect(result.length).toBe(helper.blogs.length - 1)
+    })
+
+    test.only('a blog likes can be updated', async () => {
+        const blogsAtStart = await helper.getAllBlogsInDB()
+        const blogToUpdate = blogsAtStart[0]
+
+        const blog = {
+            title: 'React patterns',
+            author: 'Michael Chan',
+            url: 'https://reactpatterns.com/',
+            likes: 9999
+        }
+
+        const response = await api.put(`/api/blogs/${ blogToUpdate.id }`).send(blog)
+        expect(response.status).toBe(200)
+
+        const result = await helper.getAllBlogsInDB()
+        expect(result[0].likes).toBe(9999)
     })
 
 })
