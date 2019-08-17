@@ -19,7 +19,9 @@ const favoriteBlog = (blogs) => {
         }
     }
 
-    return { author: topBlog.author, likes: topBlog.likes, title: topBlog.title }
+    delete topBlog.url
+
+    return topBlog
 }
 
 const authorWithMostBlogs = (authors) => {
@@ -33,7 +35,7 @@ const authorWithMostBlogs = (authors) => {
         }
     }
 
-    return { author: topAuthor.author, blogs: topAuthor.blogs }
+    return topAuthor
 }
 
 const authorWithMostLikes = (blogs) => {

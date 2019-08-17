@@ -1,8 +1,12 @@
-const MONGODB_URI = process.env.MONGODB_URI
+let MONGODB_URI = process.env.MONGODB_URI
 const PORT = process.env.PORT
 
+if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
+    MONGODB_URI = process.env.TEST_MONGODB_URI
+}
+
 if (MONGODB_URI === undefined || PORT === undefined ) {
-    console.log("missing .env config")
+    console.log('missing .env config')
     process.exit(1)
 }
 
