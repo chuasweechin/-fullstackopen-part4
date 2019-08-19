@@ -81,7 +81,7 @@ describe('blog api test', () => {
     })
 
 
-    test('a valid blog should not be added if contents are missing', async () => {
+    test('a blog should not be added if contents are missing', async () => {
         const blog = {
             author: 'Alan John'
         }
@@ -105,7 +105,7 @@ describe('blog api test', () => {
         expect(result.length).toBe(helper.blogs.length - 1)
     })
 
-    test.only('a blog likes can be updated', async () => {
+    test('a blog likes can be updated', async () => {
         const blogsAtStart = await helper.getAllBlogsInDB()
         const blogToUpdate = blogsAtStart[0]
 
