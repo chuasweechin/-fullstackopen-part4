@@ -31,29 +31,6 @@ describe('blog api test', () => {
         expect(response.body.length).toBe(helper.blogs.length)
     })
 
-
-    test('a valid blog can be added', async () => {
-        const blog = {
-            title: 'Hello World',
-            author: 'John Chua',
-            url: 'https://helloWorld.com/',
-            likes: 80
-        }
-
-        await api
-            .post('/api/blogs')
-            .send(blog)
-            .expect(201)
-            .expect('Content-Type', /application\/json/)
-
-        const result = await helper.getAllBlogsInDB()
-        expect(result.length).toBe(helper.blogs.length + 1)
-
-        const titles = result.map(n => n.title)
-        expect(titles).toContain('Hello World')
-    })
-
-
     test('blogs should contain id property', async () => {
         const response = await api.get('/api/blogs')
         expect(response.body[0].id).toBeDefined()
@@ -123,6 +100,26 @@ describe('blog api test', () => {
         expect(result[0].likes).toBe(9999)
     })
 
+    test('a valid blog can be added', async () => {
+        const blog = {
+            title: 'Hello World',
+            author: 'John Chua',
+            url: 'https://helloWorld.com/',
+            likes: 80
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(blog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+
+        const result = await helper.getAllBlogsInDB()
+        expect(result.length).toBe(helper.blogs.length + 1)
+
+        const titles = result.map(n => n.title)
+        expect(titles).toContain('Hello World')
+    })
 })
 
 afterAll(() => {
