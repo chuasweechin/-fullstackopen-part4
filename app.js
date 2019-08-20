@@ -1,5 +1,7 @@
 // const http = require('http')
 const config = require('./utils/config')
+
+const loginRouter = require('./controllers/login')
 const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
 
@@ -25,6 +27,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(middleware.requestLogger)
 
+app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/blogs', blogsRouter)
 

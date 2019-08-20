@@ -11,9 +11,8 @@ jest.setTimeout(20000)
 
 beforeEach(async () => {
     await User.deleteMany({})
-    const userObjects = helper.users.map(u => new User(u))
-    const promiseArray = userObjects.map(u => u.save())
 
+    const promiseArray = helper.users.map(u => api.post('/api/users').send(u))
     await Promise.all(promiseArray)
 })
 

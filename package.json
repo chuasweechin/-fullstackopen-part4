@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production node index.js",
     "watch": "NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
-    "test": "NODE_ENV=test jest --verbose --runInBand -t 'blog api test'"
+    "test": "NODE_ENV=test jest --verbose --runInBand -t 'user api test'"
   },
   "author": "",
   "license": "MIT",
@@ -16,6 +16,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.9",
     "mongoose-unique-validator": "^2.0.3"
   },
