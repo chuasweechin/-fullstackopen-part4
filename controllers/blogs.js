@@ -84,16 +84,20 @@ blogsRouter.put('/:id', async (request, response, next) => {
                 error: 'content missing'
             })
         }
-
+        console.log(request.body)
         const blog = {
+            user: request.body.user,
             title: request.body.title,
             author: request.body.author,
             url: request.body.url,
             likes: request.body.likes,
         }
 
-        const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
-        response.json(updatedBlog.toJSON())
+        const updatedBlog = await Blog
+            .findByIdAndUpdate(request.params.id, blog, { new: true })
+            .populate('user', { username: true, name: true })
+
+        response.json(updatedBlog)
 
     } catch (err) {
         next(err)
